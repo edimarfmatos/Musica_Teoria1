@@ -3,18 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Curso Musical - Nível 1</title>
+<title>Curso Música Fácil</title>
 
 <style>
+
+/* ============================= */
+/* ===== CONFIGURAÇÃO GERAL ==== */
+/* ============================= */
+
 body{
     margin:0;
     font-family: Arial, sans-serif;
     text-align:center;
-    background: linear-gradient(135deg,#ff8c00,#ff3c00);
     color:white;
 }
 
-h1{ margin-top:20px; }
+header{
+    background:#111;
+    color:white;
+    padding:15px;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+}
+
+nav button{
+    margin:5px;
+    padding:8px 15px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.tela{
+    display:none;
+    padding-top:130px;
+    min-height:100vh;
+}
+
+/* ============================= */
+/* ===== TELA 1 - RITMO ======= */
+/* ============================= */
+
+#tela1{
+    background: linear-gradient(135deg,#ff8c00,#ff3c00);
+}
 
 .pontuacao{
     font-size:18px;
@@ -31,7 +66,7 @@ h1{ margin-top:20px; }
     width:350px;
 }
 
-.notas{
+.notas-container{
     display:flex;
     justify-content:center;
     flex-wrap:wrap;
@@ -54,8 +89,6 @@ h1{ margin-top:20px; }
     background:#ffe066;
 }
 
-.resposta{ margin-top:25px; }
-
 .correto{
     font-size:30px;
     font-weight:bold;
@@ -67,7 +100,7 @@ h1{ margin-top:20px; }
     color:#ffffff;
 }
 
-button{
+#proximo{
     margin-top:20px;
     padding:10px 20px;
     font-size:18px;
@@ -79,13 +112,82 @@ button{
     display:none;
 }
 
-button:hover{ background:#000; }
+/* ============================= */
+/* ===== TELA 2 - NOTAS ======= */
+/* ============================= */
+
+#tela2{
+    background: linear-gradient(135deg,#2196f3,#0d47a1);
+}
+
+.staff{
+    margin:30px auto;
+    width:350px;
+    height:160px;
+    position:relative;
+}
+
+.staff-line{
+    position:absolute;
+    width:100%;
+    height:2px;
+    background:white;
+}
+
+.note-dot{
+    position:absolute;
+    width:18px;
+    height:18px;
+    background:yellow;
+    border-radius:50%;
+}
+
+.note-name{
+    position:absolute;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.notas-botoes{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+    margin-top:20px;
+}
+
+.botao-nota{
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.botao-nota:hover{
+    transform:scale(1.1);
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>🎵 Curso Musical - Nível 1</h1>
+<header>
+    <h2>🎼 Curso Música Fácil</h2>
+    <nav>
+        <button style="background:#ff9800;color:white;" onclick="mostrarTela('tela1')">🟠 Figuras de Som</button>
+        <button style="background:#2196f3;color:white;" onclick="mostrarTela('tela2')">🔵 Notas na Pauta</button>
+    </nav>
+</header>
+
+<!-- ================================================= -->
+<!-- ================= TELA 1 ======================== -->
+<!-- ================================================= -->
+
+<section id="tela1" class="tela">
+
+<h1>🎵 Nível 1 - Figuras de Som</h1>
 
 <div class="pontuacao">
 ⭐ Pontos: <span id="pontos">0</span> |
@@ -94,7 +196,6 @@ button:hover{ background:#000; }
 
 <div class="pergunta" id="pergunta"></div>
 
-<!-- Pauta -->
 <svg class="pauta" height="130">
   <line x1="60" y1="30" x2="340" y2="30" stroke="white" stroke-width="2"/>
   <line x1="60" y1="50" x2="340" y2="50" stroke="white" stroke-width="2"/>
@@ -104,46 +205,64 @@ button:hover{ background:#000; }
   <circle id="notaCerta" cx="200" cy="70" r="8" fill="yellow" style="display:none;"/>
 </svg>
 
-<div class="notas">
-
-<div class="nota" onclick="verificar(4)">
-<svg width="50" height="60">
-  <ellipse cx="25" cy="30" rx="15" ry="10" fill="none" stroke="black" stroke-width="3"/>
-</svg>
-4 tempos
+<div class="notas-container">
+<div class="nota" onclick="verificar(4)">4 tempos</div>
+<div class="nota" onclick="verificar(2)">2 tempos</div>
+<div class="nota" onclick="verificar(1)">1 tempo</div>
+<div class="nota" onclick="verificar(0.5)">1/2 tempo</div>
 </div>
 
-<div class="nota" onclick="verificar(2)">
-<svg width="50" height="60">
-  <ellipse cx="20" cy="35" rx="12" ry="8" fill="none" stroke="black" stroke-width="3"/>
-  <line x1="32" y1="35" x2="32" y2="5" stroke="black" stroke-width="3"/>
-</svg>
-2 tempos
-</div>
-
-<div class="nota" onclick="verificar(1)">
-<svg width="50" height="60">
-  <ellipse cx="20" cy="35" rx="12" ry="8" fill="black"/>
-  <line x1="32" y1="35" x2="32" y2="5" stroke="black" stroke-width="3"/>
-</svg>
-1 tempo
-</div>
-
-<div class="nota" onclick="verificar(0.5)">
-<svg width="50" height="60">
-  <ellipse cx="20" cy="35" rx="12" ry="8" fill="black"/>
-  <line x1="32" y1="35" x2="32" y2="5" stroke="black" stroke-width="3"/>
-  <path d="M32 5 Q50 15 35 25" stroke="black" stroke-width="3" fill="none"/>
-</svg>
-1/2 tempo
-</div>
-
-</div>
-
-<div class="resposta" id="resposta"></div>
+<div id="resposta"></div>
 <button id="proximo" onclick="novaPergunta()">Próximo ▶</button>
 
+</section>
+
+<!-- ================================================= -->
+<!-- ================= TELA 2 ======================== -->
+<!-- ================================================= -->
+
+<section id="tela2" class="tela">
+
+<h1>🎼 Nível 2 - Notas na Pauta</h1>
+
+<div class="staff" id="staff">
+
+<div class="staff-line" style="top:30px;"></div>
+<div class="staff-line" style="top:50px;"></div>
+<div class="staff-line" style="top:70px;"></div>
+<div class="staff-line" style="top:90px;"></div>
+<div class="staff-line" style="top:110px;"></div>
+
+</div>
+
+<div class="notas-botoes">
+<button class="botao-nota" onclick="mostrarNota('Mi')">Mi</button>
+<button class="botao-nota" onclick="mostrarNota('Fá')">Fá</button>
+<button class="botao-nota" onclick="mostrarNota('Sol')">Sol</button>
+<button class="botao-nota" onclick="mostrarNota('Lá')">Lá</button>
+<button class="botao-nota" onclick="mostrarNota('Si')">Si</button>
+<button class="botao-nota" onclick="mostrarNota('Dó')">Dó</button>
+<button class="botao-nota" onclick="mostrarNota('Ré')">Ré</button>
+</div>
+
+</section>
+
 <script>
+
+/* ============================= */
+/* ===== CONTROLE DE TELAS ===== */
+/* ============================= */
+
+function mostrarTela(id){
+    document.querySelectorAll(".tela").forEach(t=>t.style.display="none");
+    document.getElementById(id).style.display="block";
+}
+
+mostrarTela("tela1");
+
+/* ============================= */
+/* ===== LÓGICA TELA 1 ========= */
+/* ============================= */
 
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let bpm = 60;
@@ -172,37 +291,93 @@ function tocarSom(duracao){
 
 function novaPergunta(){
     respostaCorreta = valores[Math.floor(Math.random()*valores.length)];
-
     document.getElementById("pergunta").innerHTML =
         "Qual figura vale <strong>" + respostaCorreta + " tempo(s)</strong>?";
-
     document.getElementById("resposta").innerHTML = "";
     document.getElementById("notaCerta").style.display = "none";
     document.getElementById("proximo").style.display = "none";
 }
 
 function verificar(valor){
-
     tocarSom(valor);
-
-    let resposta = document.getElementById("resposta");
-    let botao = document.getElementById("proximo");
-
     if(valor === respostaCorreta){
         pontos++;
         document.getElementById("pontos").innerText = pontos;
-        resposta.innerHTML = "<div class='correto'>✔ CORRETO!</div>";
+        document.getElementById("resposta").innerHTML = "<div class='correto'>✔ CORRETO!</div>";
         document.getElementById("notaCerta").style.display = "block";
     }else{
         erros++;
         document.getElementById("erros").innerText = erros;
-        resposta.innerHTML = "<div class='errado'>✘ Tente novamente!</div>";
+        document.getElementById("resposta").innerHTML = "<div class='errado'>✘ Tente novamente!</div>";
     }
-
-    botao.style.display = "inline-block";
+    document.getElementById("proximo").style.display = "inline-block";
 }
 
 novaPergunta();
+
+/* ============================= */
+/* ===== LÓGICA TELA 2 ========= */
+/* ============================= */
+
+const posicoes = {
+  "Mi":110,
+  "Fá":100,
+  "Sol":90,
+  "Lá":80,
+  "Si":70,
+  "Dó":60,
+  "Ré":50
+};
+
+const frequencias = {
+  "Mi":329.63,
+  "Fá":349.23,
+  "Sol":392.00,
+  "Lá":440.00,
+  "Si":493.88,
+  "Dó":523.25,
+  "Ré":587.33
+};
+
+function mostrarNota(nota){
+
+    const staff = document.getElementById("staff");
+    staff.querySelectorAll(".note-dot,.note-name").forEach(e=>e.remove());
+
+    const bolinha = document.createElement("div");
+    bolinha.className="note-dot";
+    bolinha.style.top = posicoes[nota]+"px";
+    bolinha.style.left = "160px";
+
+    const nome = document.createElement("div");
+    nome.className="note-name";
+    nome.innerText = nota;
+    nome.style.top = (posicoes[nota]-20)+"px";
+    nome.style.left = "160px";
+
+    staff.appendChild(bolinha);
+    staff.appendChild(nome);
+
+    tocarNota(frequencias[nota]);
+}
+
+function tocarNota(freq){
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type="triangle";
+    osc.frequency.value=freq;
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    gain.gain.setValueAtTime(0,audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.6,audioCtx.currentTime+0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+1);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime+1);
+}
 
 </script>
 
