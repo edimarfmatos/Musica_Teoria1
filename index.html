@@ -81,7 +81,7 @@ nav button{
     cursor:pointer;
     transition:0.3s;
     color:black;
-    width:110px;
+    width:120px;
 }
 
 .nota:hover{
@@ -168,6 +168,91 @@ nav button{
     transform:scale(1.1);
 }
 
+
+/* =========================
+   TELA 3 - CONTADOR DE TEMPO
+========================= */
+/* ============================= */
+/* ===== TELA 3 - COMPASSO ==== */
+/* ============================= */
+
+#tela3{
+    background: linear-gradient(135deg,#2e7d32,#1b5e20);
+    color:white;
+}
+
+.pauta3{
+    margin:30px auto;
+    width:1000px;
+    height:220px;
+    position:relative;
+}
+
+.linha3{
+    position:absolute;
+    width:100%;
+    height:2px;
+    background:white;
+}
+
+.clave3{
+    position:absolute;
+    left:10px;
+    top:55px;
+    font-size:70px;
+}
+
+.compassos3{
+    position:absolute;
+    left:100px;
+    top:0;
+    height:100%;
+    display:flex;
+    align-items:flex-end;
+}
+
+.notaWrapper3{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.nota3{
+    font-size:42px;
+    transition:0.1s;
+}
+
+.nota3.ativa{
+    transform:scale(1.3);
+    color:yellow;
+}
+
+.contagem3{
+    font-size:16px;
+    margin-top:5px;
+    color:#ffd54f;
+}
+
+.cursor3{
+    position:absolute;
+    top:45px;
+    width:3px;
+    height:110px;
+    background:red;
+    left:100px;
+}
+
+.controles3 button{
+    margin:8px;
+    padding:8px 15px;
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+
+
 </style>
 </head>
 
@@ -176,14 +261,26 @@ nav button{
 <header>
     <h2>🎼 Curso Música Fácil</h2>
     <nav>
-        <button style="background:#ff9800;color:white;" onclick="mostrarTela('tela1')">🟠 Figuras de Som</button>
-        <button style="background:#2196f3;color:white;" onclick="mostrarTela('tela2')">🔵 Notas na Pauta</button>
+        <button style="background:#ff9800;color:white;" 
+                onclick="mostrarTela('tela1')">
+            🟠 Figuras de Som
+        </button>
+
+        <button style="background:#2196f3;color:white;" 
+                onclick="mostrarTela('tela2')">
+            🔵 Notas na Pauta
+        </button>
+
+        <button style="background:#2e7d32;color:white;" 
+                onclick="mostrarTela('tela3')">
+            🟢 Contador de Tempo
+        </button>
     </nav>
+    
 </header>
 
-<!-- ================================================= -->
-<!-- ================= TELA 1 ======================== -->
-<!-- ================================================= -->
+
+<!-- ================= TELA 1 ================= -->
 
 <section id="tela1" class="tela">
 
@@ -206,10 +303,47 @@ nav button{
 </svg>
 
 <div class="notas-container">
-<div class="nota" onclick="verificar(4)">4 tempos</div>
-<div class="nota" onclick="verificar(2)">2 tempos</div>
-<div class="nota" onclick="verificar(1)">1 tempo</div>
-<div class="nota" onclick="verificar(0.5)">1/2 tempo</div>
+
+<div class="nota" onclick="verificar(4)">
+    <svg width="40" height="40">
+        <ellipse cx="20" cy="20" rx="12" ry="8"
+                 fill="white" stroke="black" stroke-width="2"/>
+    </svg>
+    <div>4 tempos</div>
+</div>
+
+<div class="nota" onclick="verificar(2)">
+    <svg width="40" height="50">
+        <ellipse cx="20" cy="30" rx="10" ry="7"
+                 fill="white" stroke="black" stroke-width="2"/>
+        <line x1="30" y1="30" x2="30" y2="5"
+              stroke="black" stroke-width="2"/>
+    </svg>
+    <div>2 tempos</div>
+</div>
+
+<div class="nota" onclick="verificar(1)">
+    <svg width="40" height="50">
+        <ellipse cx="20" cy="30" rx="10" ry="7"
+                 fill="black"/>
+        <line x1="30" y1="30" x2="30" y2="5"
+              stroke="black" stroke-width="2"/>
+    </svg>
+    <div>1 tempo</div>
+</div>
+
+<div class="nota" onclick="verificar(0.5)">
+    <svg width="50" height="60">
+        <ellipse cx="20" cy="35" rx="10" ry="7"
+                 fill="black"/>
+        <line x1="30" y1="35" x2="30" y2="10"
+              stroke="black" stroke-width="2"/>
+        <path d="M30 10 Q45 20 30 25"
+              stroke="black" stroke-width="2" fill="none"/>
+    </svg>
+    <div>1/2 tempo</div>
+</div>
+
 </div>
 
 <div id="resposta"></div>
@@ -217,22 +351,18 @@ nav button{
 
 </section>
 
-<!-- ================================================= -->
-<!-- ================= TELA 2 ======================== -->
-<!-- ================================================= -->
+<!-- ================= TELA 2 ================= -->
 
 <section id="tela2" class="tela">
 
 <h1>🎼 Nível 2 - Notas na Pauta</h1>
 
 <div class="staff" id="staff">
-
 <div class="staff-line" style="top:30px;"></div>
 <div class="staff-line" style="top:50px;"></div>
 <div class="staff-line" style="top:70px;"></div>
 <div class="staff-line" style="top:90px;"></div>
 <div class="staff-line" style="top:110px;"></div>
-
 </div>
 
 <div class="notas-botoes">
@@ -247,11 +377,46 @@ nav button{
 
 </section>
 
+<!-- ============================= -->
+<!-- TELA 3 -->
+<!-- ============================= -->
+
+<!-- ================= TELA 3 ================= -->
+
+<section id="tela3" class="tela">
+
+<h1>⏱ Nível 3 - Leitura de Compassos</h1>
+
+<div class="controles3">
+<button onclick="gerarTela3()">Gerar</button>
+<button onclick="tocarTela3()">Play</button>
+<button onclick="pausarTela3()">Pausar</button>
+</div>
+
+<div class="pauta3">
+
+<div class="linha3" style="top:50px;"></div>
+<div class="linha3" style="top:70px;"></div>
+<div class="linha3" style="top:90px;"></div>
+<div class="linha3" style="top:110px;"></div>
+<div class="linha3" style="top:130px;"></div>
+
+<div class="clave3">𝄞</div>
+
+<div id="cursor3" class="cursor3"></div>
+
+<div id="compassos3" class="compassos3"></div>
+
+</div>
+
+</section>
+
+
+
+
 <script>
 
-/* ============================= */
 /* ===== CONTROLE DE TELAS ===== */
-/* ============================= */
 
 function mostrarTela(id){
     document.querySelectorAll(".tela").forEach(t=>t.style.display="none");
@@ -260,9 +425,7 @@ function mostrarTela(id){
 
 mostrarTela("tela1");
 
-/* ============================= */
-/* ===== LÓGICA TELA 1 ========= */
-/* ============================= */
+/* ===== TELA 1 ===== */
 
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let bpm = 60;
@@ -315,9 +478,7 @@ function verificar(valor){
 
 novaPergunta();
 
-/* ============================= */
-/* ===== LÓGICA TELA 2 ========= */
-/* ============================= */
+/* ===== TELA 2 ===== */
 
 const posicoes = {
   "Mi":110,
@@ -378,6 +539,171 @@ function tocarNota(freq){
     osc.start();
     osc.stop(audioCtx.currentTime+1);
 }
+
+
+/* ============================= */
+/* TELA 3 - SCRIPT */
+/* ===== TELA 3 COMPLETA ===== */
+
+let notas3=[];
+let intervalo3=null;
+let indice3=0;
+let tocando3=false;
+
+let bpm3 = 80;
+
+const figuras3=[
+  {simbolo:"♪", valor:0.5},
+  {simbolo:"♩", valor:1},
+  {simbolo:"𝅗𝅥", valor:2},
+  {simbolo:"𝅝", valor:4}
+];
+
+function gerarTela3(){
+
+    const container=document.getElementById("compassos3");
+    container.innerHTML="";
+    notas3=[];
+    indice3=0;
+
+    const totalCompassos = 3;
+    const temposPorCompasso = 4;
+
+    let contadorTempoGlobal = 1;
+
+    for(let c=0;c<totalCompassos;c++){
+
+        let soma=0;
+
+        while(soma<temposPorCompasso){
+
+            let figura=figuras3[Math.floor(Math.random()*figuras3.length)];
+
+            if(soma+figura.valor<=temposPorCompasso){
+
+                let wrapper=document.createElement("div");
+                wrapper.className="notaWrapper3";
+
+                let nota=document.createElement("div");
+                nota.className="nota3";
+                nota.innerText=figura.simbolo;
+
+                nota.style.width=(figura.valor*60)+"px";
+                wrapper.style.width=(figura.valor*60)+"px";
+
+                let contagem=document.createElement("div");
+                contagem.className="contagem3";
+
+                // gerar contagem correta
+                let textoContagem="";
+
+                if(figura.valor===4){
+                    textoContagem="1 2 3 4";
+                    contadorTempoGlobal+=4;
+                }
+                else if(figura.valor===2){
+                    textoContagem=contadorTempoGlobal+" "+(contadorTempoGlobal+1);
+                    contadorTempoGlobal+=2;
+                }
+                else if(figura.valor===1){
+                    textoContagem=contadorTempoGlobal;
+                    contadorTempoGlobal+=1;
+                }
+                else if(figura.valor===0.5){
+                    textoContagem=contadorTempoGlobal+" e";
+                    contadorTempoGlobal+=1;
+                }
+
+                contagem.innerText=textoContagem;
+
+                wrapper.appendChild(nota);
+                wrapper.appendChild(contagem);
+
+                container.appendChild(wrapper);
+
+                notas3.push({
+                    elemento:nota,
+                    valor:figura.valor
+                });
+
+                soma+=figura.valor;
+            }
+        }
+
+        // barra de compasso
+        let barra=document.createElement("div");
+        barra.style.width="4px";
+        barra.style.height="100px";
+        barra.style.background="white";
+        barra.style.margin="0 15px";
+        container.appendChild(barra);
+
+        contadorTempoGlobal=1; // reinicia numeração por compasso
+    }
+}
+
+function tocarTela3(){
+
+    if(notas3.length===0) return;
+    if(tocando3) return;
+
+    tocando3=true;
+
+    const cursor=document.getElementById("cursor3");
+
+    tocarProxima();
+
+    function tocarProxima(){
+
+        if(!tocando3) return;
+
+        if(indice3>=notas3.length){
+            indice3=0;
+        }
+
+        let atual=notas3[indice3];
+
+        notas3.forEach(n=>n.elemento.classList.remove("ativa"));
+        atual.elemento.classList.add("ativa");
+
+        cursor.style.left=(100+atual.elemento.parentElement.offsetLeft)+"px";
+
+        tocarSomTela3(atual.valor, indice3===0);
+
+        let duracao = (60000 / bpm3) * atual.valor;
+
+        indice3++;
+
+        intervalo3=setTimeout(tocarProxima,duracao);
+    }
+}
+
+function tocarSomTela3(valor, forte){
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type="triangle";
+    osc.frequency.value=forte?523:440;
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    let duracao = (60000 / bpm3) * valor / 1000;
+
+    gain.gain.setValueAtTime(0,audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(forte?0.6:0.3,audioCtx.currentTime+0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+duracao);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime+duracao);
+}
+
+function pausarTela3(){
+    clearTimeout(intervalo3);
+    tocando3=false;
+}
+
 
 </script>
 
