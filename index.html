@@ -173,21 +173,27 @@ nav button{
    TELA 3 - CONTADOR DE TEMPO
 ========================= */
 /* ============================= */
-/* ===== TELA 3 - COMPASSO ==== */
+/* ===== TELA 3 - AJUSTADA ==== */
 /* ============================= */
 
 #tela3{
     background: linear-gradient(135deg,#2e7d32,#1b5e20);
     color:white;
+    padding:120px 15px 40px 15px; /* espaço para header fixo */
+    box-sizing:border-box;
 }
 
+/* Área da pauta */
 .pauta3{
     margin:30px auto;
-    width:1000px;
+    width:100%;
+    max-width:1000px;
     height:220px;
     position:relative;
+    overflow-x:auto; /* permite rolagem no celular */
 }
 
+/* Linhas */
 .linha3{
     position:absolute;
     width:100%;
@@ -195,6 +201,7 @@ nav button{
     background:white;
 }
 
+/* Clave */
 .clave3{
     position:absolute;
     left:10px;
@@ -202,6 +209,7 @@ nav button{
     font-size:70px;
 }
 
+/* Container das notas */
 .compassos3{
     position:absolute;
     left:100px;
@@ -209,14 +217,17 @@ nav button{
     height:100%;
     display:flex;
     align-items:flex-end;
+    min-width:800px; /* mantém proporção */
 }
 
+/* Wrapper nota + contagem */
 .notaWrapper3{
     display:flex;
     flex-direction:column;
     align-items:center;
 }
 
+/* Nota */
 .nota3{
     font-size:42px;
     transition:0.1s;
@@ -227,12 +238,14 @@ nav button{
     color:yellow;
 }
 
+/* Número embaixo */
 .contagem3{
     font-size:16px;
     margin-top:5px;
     color:#ffd54f;
 }
 
+/* Cursor */
 .cursor3{
     position:absolute;
     top:45px;
@@ -242,15 +255,45 @@ nav button{
     left:100px;
 }
 
+/* Controles */
+.controles3{
+    text-align:center;
+}
+
 .controles3 button{
     margin:8px;
-    padding:8px 15px;
+    padding:10px 18px;
     border:none;
     border-radius:15px;
     cursor:pointer;
     font-weight:bold;
 }
 
+/* 📱 Ajuste celular */
+@media (max-width:768px){
+
+    .pauta3{
+        height:180px;
+    }
+
+    .clave3{
+        font-size:50px;
+        top:65px;
+    }
+
+    .nota3{
+        font-size:30px;
+    }
+
+    .contagem3{
+        font-size:13px;
+    }
+
+    .cursor3{
+        height:90px;
+    }
+
+}
 
 
 </style>
@@ -543,7 +586,7 @@ function tocarNota(freq){
 
 /* ============================= */
 /* TELA 3 - SCRIPT */
-/* ===== TELA 3 COMPLETA ===== */
+/* ===== TELA 3 COMPLETA CORRIGIDA ===== */
 
 let notas3=[];
 let intervalo3=null;
@@ -569,11 +612,12 @@ function gerarTela3(){
     const totalCompassos = 3;
     const temposPorCompasso = 4;
 
-    let contadorTempoGlobal = 1;
-
     for(let c=0;c<totalCompassos;c++){
 
         let soma=0;
+
+        let tempoAtual = 1;
+        let metadeTempo = false;
 
         while(soma<temposPorCompasso){
 
@@ -588,30 +632,46 @@ function gerarTela3(){
                 nota.className="nota3";
                 nota.innerText=figura.simbolo;
 
-                nota.style.width=(figura.valor*60)+"px";
-                wrapper.style.width=(figura.valor*60)+"px";
+                let largura = figura.valor*60;
+                wrapper.style.width=largura+"px";
 
                 let contagem=document.createElement("div");
                 contagem.className="contagem3";
 
-                // gerar contagem correta
                 let textoContagem="";
+
+                // =============================
+                // CONTAGEM MUSICAL CORRETA
+                // =============================
 
                 if(figura.valor===4){
                     textoContagem="1 2 3 4";
-                    contadorTempoGlobal+=4;
+                    tempoAtual=1;
+                    metadeTempo=false;
                 }
+
                 else if(figura.valor===2){
-                    textoContagem=contadorTempoGlobal+" "+(contadorTempoGlobal+1);
-                    contadorTempoGlobal+=2;
+                    textoContagem=tempoAtual+" "+(tempoAtual+1);
+                    tempoAtual+=2;
+                    metadeTempo=false;
                 }
+
                 else if(figura.valor===1){
-                    textoContagem=contadorTempoGlobal;
-                    contadorTempoGlobal+=1;
+                    textoContagem=tempoAtual;
+                    tempoAtual+=1;
+                    metadeTempo=false;
                 }
+
                 else if(figura.valor===0.5){
-                    textoContagem=contadorTempoGlobal+" e";
-                    contadorTempoGlobal+=1;
+
+                    if(!metadeTempo){
+                        textoContagem=tempoAtual;
+                        metadeTempo=true;
+                    }else{
+                        textoContagem="e";
+                        metadeTempo=false;
+                        tempoAtual+=1;
+                    }
                 }
 
                 contagem.innerText=textoContagem;
@@ -637,8 +697,6 @@ function gerarTela3(){
         barra.style.background="white";
         barra.style.margin="0 15px";
         container.appendChild(barra);
-
-        contadorTempoGlobal=1; // reinicia numeração por compasso
     }
 }
 
