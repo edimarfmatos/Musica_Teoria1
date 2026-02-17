@@ -195,6 +195,9 @@ nav button{
 /* ============================= */
 /* ===== TELA 3 - CONTADOR ==== */
 /* ============================= */
+/* ============================= */
+/* ===== TELA 3 - CONTADOR ==== */
+/* ============================= */
 
 #tela3{
   background: linear-gradient(135deg,#2e7d32,#1b5e20);
@@ -213,6 +216,8 @@ nav button{
   font-weight:bold;
 }
 
+/* ===== CONTAINER DA PAUTA ===== */
+
 .pauta3{
   margin:30px auto;
   width:95%;
@@ -221,37 +226,47 @@ nav button{
   position:relative;
   overflow-x:auto;
   overflow-y:hidden;
+  border-radius:10px;
 }
 
+/* Linhas da pauta */
 .linha3{
   position:absolute;
-  width:100%;
+  left:0;
+  right:0;
   height:2px;
   background:white;
 }
 
+/* Clave */
 .clave3{
   position:absolute;
   left:10px;
   top:55px;
   font-size:60px;
+  z-index:2;
 }
 
+/* ===== AREA DAS NOTAS ===== */
+
 .compassos3{
-  position:absolute;
-  left:100px;
-  top:0;
+  position:relative;          /* <<< mudou aqui */
+  margin-left:100px;          /* espaço da clave */
   height:100%;
   display:flex;
   align-items:flex-end;
+  min-height:180px;
+  white-space:nowrap;
 }
 
+/* Nota + contagem */
 .notaWrapper3{
   display:flex;
   flex-direction:column;
   align-items:center;
 }
 
+/* Nota */
 .nota3{
   font-size:40px;
   transition:0.1s;
@@ -262,12 +277,14 @@ nav button{
   color:yellow;
 }
 
+/* Contagem */
 .contagem3{
   font-size:14px;
   margin-top:5px;
   color:#ffd54f;
 }
 
+/* Cursor */
 .cursor3{
   position:absolute;
   top:45px;
@@ -275,53 +292,9 @@ nav button{
   height:100px;
   background:red;
   left:100px;
+  z-index:3;
 }
 
-/* ============================= */
-/* ===== RESPONSIVO MOBILE ===== */
-/* ============================= */
-
-@media (max-width:768px){
-
-  header{
-    padding:10px;
-  }
-
-  .tela{
-    padding-top:170px;
-  }
-
-  /* Tela 1 */
-  .nota{
-    width:100px;
-    padding:10px;
-  }
-
-  /* Tela 2 */
-  .staff{
-    width:300px;
-    height:160px; /* mantém alinhamento */
-  }
-
-  /* Tela 3 */
-  .pauta3{
-    height:180px;
-  }
-
-  .nota3{
-    font-size:30px;
-  }
-
-  .clave3{
-    font-size:45px;
-    top:65px;
-  }
-
-  .cursor3{
-    height:85px;
-  }
-
-}
 
 </style>
 </head>
